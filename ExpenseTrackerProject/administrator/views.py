@@ -7,5 +7,7 @@ def index(request):
     return HttpResponse("Hi, This is learning of Django.")
 
 def dbUpload(request):
-    importExcelAndLoad.importExcel()
-    return HttpResponse("Congrats :), Database got updated with the latest Expense records.")
+    load = importExcelAndLoad()
+    load.importExcel()
+    #return HttpResponse("Congrats :), Database got updated with the latest Expense records.")
+    return HttpResponse("Congrats :), Read Completed.")
