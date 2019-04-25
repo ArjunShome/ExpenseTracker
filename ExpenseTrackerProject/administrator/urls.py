@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('index/',views.index, name = 'index'),
-    path('read_excel/',views.Read_Excel, name = 'read_excel')
+    path('dbinsert/',views.Read_Excel_LoadDB, name = 'dbinsert')
 ] 

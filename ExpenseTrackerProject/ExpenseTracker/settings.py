@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'ExpenseTracker.wsgi.application'
 DATABASES = {
     'default': {
     'ENGINE': 'sql_server.pyodbc',
-    'HOST': 'DESKTOP-RLTI3FK\ARJUNDU',
+    'HOST': r'DESKTOP-RLTI3FK\ARJUNDU',
     'USER': '',
     'PASSWORD': '',
     'NAME': 'DivyaUrbania',
