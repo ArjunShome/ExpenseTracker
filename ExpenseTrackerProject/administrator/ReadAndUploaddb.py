@@ -7,14 +7,14 @@ class ImportExcelAndLoad:
  
     def __init__(self):
         self.df = ""
-        self.conn = create_engine('mssql+pymssql://DESKTOP-RLTI3FK\ARJUNDU/DivyaUrbania')
+        self.sqlcon = create_engine(r'mssql+pyodbc://@DESKTOP-RLTI3FK\ARJUNDU/DivyaUrbania?trusted_connection=yes&driver=ODBC+Driver+13+for+SQL+Server')
+        self.sqlcon.connect()
 
 
     def ImportExcel(self):
         """Import excel values into a dataframe"""
 
-        self.df = pa.read_excel(r"D:\\MyRepo\\ExpenseTracker\\ExpenseTrackerProject\\administrator\\Static\\Data\\Flat_Expense.xlsx")
-        self.df.to_dict()    
+        self.df = pa.read_excel(r"D:\\MyRepo\\ExpenseTracker\\ExpenseTrackerProject\\administrator\\Static\\Data\\Flat_Expense.xlsx")  
 
 
     def LoadExcel_ToDb(self):
@@ -22,7 +22,7 @@ class ImportExcelAndLoad:
 
         self.ImportExcel()
         #query = DbTemplates.GetQuery('insert')
-        self.df.to_sql("TBExpenseRecord",con=self.conn,if_exists='append')
+        self.df.to_sql("TBExpenseRecord", con=self.sqlcon, if_exists='append', index=False)
 
 
 
