@@ -24,5 +24,20 @@ class ImportExcelAndLoad:
         #query = DbTemplates.GetQuery('insert')
         self.df.to_sql("TBExpenseRecord", con=self.sqlcon, if_exists='append', index=False)
 
+    def BuildQuery(self):
+        "Build Query To Fetch Data Fron DB"
+
+        table = DbTemplates.GetTable("data")
+        dbquery = DbTemplates.GetQueryRecords("fetchAll").format(TableName = table)
+        return dbquery
+    
+    def GetRecords_FromDB(self):
+        """Fetch Records From DB"""
+
+        query = self.BuildQuery()
+        self.df = pa.read_sql_query(query,con=self.sqlcon, index_col=None)
+        return self.df.to_dict()
+
+
 
 
