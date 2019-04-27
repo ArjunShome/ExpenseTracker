@@ -6,7 +6,7 @@ from administrator.ReadAndUploaddb import ImportExcelAndLoad
 def index(request):
     return HttpResponse("Hi, This is learning of Django")
 
-def Read_Excel(request):
+def Read_Excel_LoadDB(request):
     load = ImportExcelAndLoad()
-    load.ImportExcel()
-    return HttpResponse("Congrats, you just Read Excel Sheet")
+    load.LoadExcel_ToDb()
+    return HttpResponse("Congrats, you just Read Excel Sheet and Loaded the DB, Please check you db.")
