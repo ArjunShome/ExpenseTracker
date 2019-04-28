@@ -20,9 +20,9 @@ def Read_Json(request):
     }
     return JsonResponse(dic_data)
 
-def GetDataFromDB(request):
+def GetDataFromDB(request,item_name):
     obj = ImportExcelAndLoad()
-    data = obj.GetRecords_FromDB()
+    data = obj.GetRecords_FromDB(item_name)
     return JsonResponse(data)
 
     
