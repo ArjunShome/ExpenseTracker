@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <title>
+        Details
+    </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+      .table {
+        margin: auto;
+        width: 50% !important; 
+      }
+    </style>
+</head>
+
+<body>
+  <!--Nav Bar-->
+  <div class="navbar-resposive-md">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Expense Tracker</a>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Year
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">2019</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Month
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Jan</a>
+                  <a class="dropdown-item" href="#">Feb</a>
+                  <a class="dropdown-item" href="#">Mar</a>
+                  <a class="dropdown-item" href="#">Apr</a>
+                  <a class="dropdown-item" href="#">May</a>
+                  <a class="dropdown-item" href="#">Jun</a>
+                  <a class="dropdown-item" href="#">Jul</a>
+                  <a class="dropdown-item" href="#">Aug</a>
+                  <a class="dropdown-item" href="#">Sep</a>
+                  <a class="dropdown-item" href="#">Oct</a>
+                  <a class="dropdown-item" href="#">Nov</a>
+                  <a class="dropdown-item" href="#">Dec</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Expense Type
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Cash</a>
+                  <a class="dropdown-item" href="#">Credit</a>
+                  <a class="dropdown-item" href="#">Loan</a>
+                </div>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+  </div>
+  <!--Table-->
+  <div class="table-responsive-md">
+    <table class="table table-hover table-stripped table-bordered w-auto">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Year</th>
+          <th scope="col">Month</th>
+          <th scope="col">Expense Type</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</body>
+
+</html>

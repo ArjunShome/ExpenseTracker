@@ -1,28 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from administrator.ReadAndUploaddb import ImportExcelAndLoad
-from administrator.Static.Templates import DbTemplates
+from api import DbTemplates
 
 # Create your views here.
-def index(request):
-    return HttpResponse("Hi, This is learning of Django")
+paramlst = ['Date','Item','Amount']
+paramdict = {}
 
-def Read_Excel_LoadDB(request):
-    load = ImportExcelAndLoad()
-    load.LoadExcel_ToDb()
-    return HttpResponse("Congrats, you just Read Excel Sheet and Loaded the DB, Please check you db.")
-
-def Read_Json(request):
-    dic_data = {
-        "name":"Arghadeep",
-        "Age":"99",
-        "Work":"IBM"
-    }
-    return JsonResponse(dic_data)
-
-def GetDataFromDB(request,item_name):
-    obj = ImportExcelAndLoad()
-    data = obj.GetRecords_FromDB(item_name)
-    return JsonResponse(data)
-
+def GetParameters(request):
+    for param in paramlst:
+        paramdict.update({param:request.GET.get(param)})
+    #return HttpResponse("CHECK CONSOLE, {}".format(DbTemplates.GetRecords_FromDB(paramdict)))
+    return render(request,r'D:\MyRepo\ExpenseTracker\ExpenseTrackerProject\Templates\administrator\detail.html',DbTemplates.GetRecords_FromDB(paramdict))
     
