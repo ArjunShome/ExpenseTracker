@@ -2,7 +2,7 @@
 
 <head>
     <title>
-        Details
+        Expense Tracker
     </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -13,11 +13,20 @@
         width: 50% !important; 
       }
     </style>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $(".dropdown-item").click(function(){
+        var url = $(location).attr("href")
+        var param = $(this).attr('id')
+        console.log(url+'?'+param)
+      })
+    })
+    </script>
 </head>
 
 <body>
   <!--Nav Bar-->
-  <div class="navbar-resposive-md">
+  <div class="navbar-resposive-sm">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Expense Tracker</a>
         
@@ -28,7 +37,14 @@
                   Year
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">2019</a>
+                  {% for k,v in data.items %}
+                    {% if k == 'YEARS'%}
+                      {% for i,j in v.items %}
+                      <!--<a class="dropdown-item" href="#" id="Month={{j}}">{{j}}</a>-->
+                      <label class="dropdown-item" id="Year={{j}}">{{j}}</label>
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -36,18 +52,14 @@
                     Month
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Jan</a>
-                  <a class="dropdown-item" href="#">Feb</a>
-                  <a class="dropdown-item" href="#">Mar</a>
-                  <a class="dropdown-item" href="#">Apr</a>
-                  <a class="dropdown-item" href="#">May</a>
-                  <a class="dropdown-item" href="#">Jun</a>
-                  <a class="dropdown-item" href="#">Jul</a>
-                  <a class="dropdown-item" href="#">Aug</a>
-                  <a class="dropdown-item" href="#">Sep</a>
-                  <a class="dropdown-item" href="#">Oct</a>
-                  <a class="dropdown-item" href="#">Nov</a>
-                  <a class="dropdown-item" href="#">Dec</a>
+                  {% for k,v in data.items %}
+                    {% if k == 'MONTHS'%}
+                      {% for i,j in v.items %}
+                      <!--<a class="dropdown-item" href="#" id="Month={{j}}">{{j}}</a>-->
+                      <label class="dropdown-item" id="Month={{j}}">{{j}}</label>
+                      {% endfor %}
+                    {% endif %}
+                  {%endfor%}
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -69,15 +81,26 @@
     </nav>
   </div>
   <!--Table-->
-  <div class="table-responsive-md">
+  <div class="table-responsive-sm">
     <table class="table table-hover table-stripped table-bordered w-auto">
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
           <th scope="col">Year</th>
-          <th scope="col">Month</th>
-          <th scope="col">Expense Type</th>
+          <th scope="col">Items</th>
+          <th scope="col">Price</th>
         </tr>
+        {% for key,value in data.items %}
+          {% if key == 'data' %}
+            {% for items in value %}
+            <tr>
+              {% for data in items%}
+              <td>{{data}}</td>
+              {%endfor%}
+            </tr>
+            {%endfor%}
+          {%endif%}
+        {%endfor%}
       </thead>
     </table>
   </div>

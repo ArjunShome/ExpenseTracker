@@ -13,7 +13,10 @@ def GetQuery(command):
     QueryTemplate = {
         "update":"UPDATE {table} SET {column} = {value} WHERE {condition}",
         "delete":"DELETE FROM {table} WHERE {condition}",
-        "select":"SELECT {columns} FROM {table} WHERE "
+        "select":"SELECT {columns} FROM {table} WHERE ",
+        "select_all":"SELECT {columns} FROM {table}",
+        "get_years":"SELECT DISTINCT DATENAME({Year_Month},{column}) AS YEARS FROM {table}",
+        "get_months":"SELECT DISTINCT DATENAME({Year_Month},{column}) AS MONTHS FROM {table}"
     }
     return QueryTemplate.get(command)
 
@@ -24,6 +27,33 @@ def GetTable(TableName):
         "data":"TbExpenseRecord"
     }
     return Tables.get(TableName)
+
+def PopulateHome():
+    """Populate the Home Page with Year, Month and Expense Type"""
+    data = {}
+    data.update(GetYears())
+    data.update(GetMonths())
+    data.update(GetAllData())
+    return data
+
+def GetYears():
+    """ GET THE YEARS FOR WHICH DATA IS AVAILABLE """
+
+    finalquery = GetQuery('get_years').format(Year_Month = 'YEAR', column = '[Date]', table=GetTable('data'))
+    return GetRecords_FromDB(finalquery)
+
+def GetMonths():
+    """ GET THE MONTHS FOR WHICH DATA IS AVAILABLE """
+
+    finalquery = GetQuery('get_months').format(Year_Month = 'MONTH', column = '[Date]', table=GetTable('data'))
+    return GetRecords_FromDB(finalquery)
+
+def GetAllData():
+    """ GET THE MONTHS FOR WHICH DATA IS AVAILABLE """
+
+    finalquery = GetQuery('select_all').format(columns = '*', table=GetTable('data'))
+    df = pa.read_sql_query(finalquery,con=CreateConnection(), index_col = None)
+    return df.to_dict(orient='split')
 
 def DeriveQuery(parameterdict):
     """Form The Query"""
@@ -37,11 +67,10 @@ def DeriveQuery(parameterdict):
         elif parameterdict.get(k) is not None and i > 0:
             finalquery = finalquery + ' and {} = \'{}\''.format(k,parameterdict.get(k))
             i+=1
-    return finalquery
+    return GetRecords_FromDB(finalquery)
 
-def GetRecords_FromDB(parameter):
-        """Fetch Records From DB"""
+def GetRecords_FromDB(query):
+    """Fetch Records From DB"""
         
-        query = DeriveQuery(parameter)
-        df = pa.read_sql_query(query,con=CreateConnection(), index_col = None)
-        return df.to_dict()
+    df = pa.read_sql_query(query,con=CreateConnection(), index_col = None)
+    return df.to_dict()
